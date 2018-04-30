@@ -2,6 +2,8 @@ PODS:
   - QBImagePickerController (3.4.0)
   - React (0.55.3):
     - React/Core (= 0.55.3)
+  - react-native-fetch-blob (0.10.6):
+    - React/Core
   - react-native-video (2.0.0):
     - React
   - React/Core (0.55.3):
@@ -40,6 +42,7 @@ PODS:
   - yoga (0.55.3.React)
 
 DEPENDENCIES:
+  - react-native-fetch-blob (from `../node_modules/react-native-fetch-blob`)
   - react-native-video (from `../node_modules/react-native-video`)
   - React/Core (from `../node_modules/react-native`)
   - React/RCTActionSheet (from `../node_modules/react-native`)
@@ -63,6 +66,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   React:
     :path: "../node_modules/react-native"
+  react-native-fetch-blob:
+    :path: "../node_modules/react-native-fetch-blob"
   react-native-video:
     :path: "../node_modules/react-native-video"
   RNImageCropPicker:
@@ -73,11 +78,12 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   React: aa2040dbb6f317b95314968021bd2888816e03d5
+  react-native-fetch-blob: 63394b1d7b0781547b3e4463b3195790177b1222
   react-native-video: 6db316323366025251a815c49ca0e2edabe30a2a
   RNImageCropPicker: 32ca4b9fef4e1b7b85ba69494242122948117e06
   RSKImageCropper: d9a1acbc0600bf8decc8f0d21895872c99a9e4cf
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 5c2fae0fc7737514d91c6c1395539350ea857274
+PODFILE CHECKSUM: e19f71f600e2657c510c853c515dde174b2d2022
 
 COCOAPODS: 1.5.0

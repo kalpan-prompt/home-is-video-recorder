@@ -1,15 +1,19 @@
 import Video from 'react-native-video';
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import ImageCropPicker from './ImagePicker';
+import ImageCropPicker from './app/ImagePicker';
+import { upload } from './app/ImageUploader';
 
 export default class App extends React.Component {
   state = {
-    medias: []
+    medias: [],
+    url: null,
+    progress: null
   }
+
   render() {
-    const { medias } = this.state;
-debugger;
+    const { medias, progress, url } = this.state;
+
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={() => this.handleOpenPicker({ mediaType: 'photo' })}>
@@ -26,6 +30,8 @@ debugger;
         </TouchableOpacity>
 
         <View style={styles.mediasWrapper}>
+          {!!progress && <Text>{progress}</Text>}
+          {!!url && <Text>from URL</Text>}
           {medias.map((media, index) => {
             switch (media.mediaType) {
               case 'photo':
@@ -56,12 +62,30 @@ debugger;
   handleOpenCamera = async ({ mediaType }) => {
     const medias = await ImageCropPicker.openCamera({ mediaType });
     medias && this.setState({ medias });
+
+    const url = await upload({
+      entityType: 'user',
+      filename: medias[0].filename,
+      filePath: medias[0].localUri,
+      onProgress: this.handleProgress
+    });
+    this.setState({ url });
   }
 
   handleOpenPicker = async ({ mediaType }) => {
     const medias = await ImageCropPicker.openPicker({ mediaType });
     medias && this.setState({ medias });
+
+    const url = await upload({
+      entityType: 'user',
+      filename: medias[0].filename,
+      filePath: medias[0].localUri,
+      onProgress: this.handleProgress
+    });
+    this.setState({ url });
   }
+
+  handleProgress = (val) => this.setState({ progress: val });
 }
 
 const styles = StyleSheet.create({

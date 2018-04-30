@@ -17,10 +17,10 @@ class ImageCropPicker {
       })
         .then((images) => {
           if (Array.isArray(images)) {
-            const medias = images.map((media) => ({ localUri: media.path, mediaType }));
+            const medias = images.map((media) => ({ localUri: media.path, mediaType, filename: this._getFileName(media.path) }));
             resolve(medias);
           } else {
-            resolve([{ localUri: images.path, mediaType }]);
+            resolve([{ localUri: images.path, mediaType, filename: this._getFileName(images.path) }]);
           }
         })
         .catch((err) => {
@@ -47,7 +47,7 @@ class ImageCropPicker {
         height: 400,
       })
         .then(({ path }) => {
-          resolve({ localUri: path, mediaType });
+          resolve({ localUri: path, mediaType, filename: this._getFileName(path) });
         })
         .catch((err) => {
           switch (err.code) {
@@ -63,6 +63,10 @@ class ImageCropPicker {
           }
         });
     });
+  }
+
+  static _getFileName(uri, path) {
+      return uri.split('/').pop();
   }
 }
 
