@@ -1,5 +1,9 @@
 PODS:
   - QBImagePickerController (3.4.0)
+  - React (0.55.3):
+    - React/Core (= 0.55.3)
+  - react-native-video (2.0.0):
+    - React
   - React/Core (0.55.3):
     - yoga (= 0.55.3.React)
   - React/fishhook (0.55.3)
@@ -36,6 +40,7 @@ PODS:
   - yoga (0.55.3.React)
 
 DEPENDENCIES:
+  - react-native-video (from `../node_modules/react-native-video`)
   - React/Core (from `../node_modules/react-native`)
   - React/RCTActionSheet (from `../node_modules/react-native`)
   - React/RCTAnimation (from `../node_modules/react-native`)
@@ -58,6 +63,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   React:
     :path: "../node_modules/react-native"
+  react-native-video:
+    :path: "../node_modules/react-native-video"
   RNImageCropPicker:
     :path: "../node_modules/react-native-image-crop-picker"
   yoga:
@@ -66,10 +73,11 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   React: aa2040dbb6f317b95314968021bd2888816e03d5
+  react-native-video: 6db316323366025251a815c49ca0e2edabe30a2a
   RNImageCropPicker: 32ca4b9fef4e1b7b85ba69494242122948117e06
   RSKImageCropper: d9a1acbc0600bf8decc8f0d21895872c99a9e4cf
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 70966b27c42168644ee3325b543f62c628a18873
+PODFILE CHECKSUM: 5c2fae0fc7737514d91c6c1395539350ea857274
 
 COCOAPODS: 1.5.0

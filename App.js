@@ -1,6 +1,7 @@
-import ImageCropPicker from './ImagePicker';
+import Video from 'react-native-video';
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import ImageCropPicker from './ImagePicker';
 
 export default class App extends React.Component {
   state = {
@@ -25,9 +26,28 @@ debugger;
         </TouchableOpacity>
 
         <View style={styles.mediasWrapper}>
-          {medias.map((media, index) =>
-            <Image source={{ uri: media.localUri }} style={styles.image} />
-          )}
+          {medias.map((media, index) => {
+            switch (media.mediaType) {
+              case 'photo':
+                return <Image source={{ uri: media.localUri }} style={styles.image} />;
+              case 'video':
+                return <Video
+                    source={{
+                      uri: media.localUri,
+                      mainVer: 1,
+                      patchVer: 0
+                    }}
+                    rate={1.0}
+                    volume={1.0}
+                    muted={false}
+                    paused={false}
+                    resizeMode="contain"
+                    style={styles.image}
+                  />;
+              default:
+                return null;
+            }
+          })}
         </View>
       </View>
     );

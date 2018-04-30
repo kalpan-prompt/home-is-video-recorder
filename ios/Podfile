@@ -23,6 +23,8 @@ target 'videorecorder' do
   ]
   pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
 
+  pod 'react-native-video', :path => '../node_modules/react-native-video'
+
 end
 
 # very important to have, unless you removed React dependencies for Libraries
