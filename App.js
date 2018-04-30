@@ -8,41 +8,39 @@ export default class App extends React.Component {
   }
   render() {
     const { medias } = this.state;
-
+debugger;
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.button} onPress={() => ImageCropPicker.openPicker({ mediaType: 'photo' })}>
+        <TouchableOpacity style={styles.button} onPress={() => this.handleOpenPicker({ mediaType: 'photo' })}>
           <Text style={styles.buttonText}>Add Image from Gallery</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => ImageCropPicker.openCamera({ mediaType: 'photo' })}>
+        <TouchableOpacity style={styles.button} onPress={() => this.handleOpenCamera({ mediaType: 'photo' })}>
           <Text style={styles.buttonText}>Add Image from Camera</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => ImageCropPicker.openPicker({ mediaType: 'video' })}>
+        <TouchableOpacity style={styles.button} onPress={() => this.handleOpenPicker({ mediaType: 'video' })}>
           <Text style={styles.buttonText}>Add Video from Gallery</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => ImageCropPicker.openCamera({ mediaType: 'video' })}>
+        <TouchableOpacity style={styles.button} onPress={() => this.handleOpenCamera({ mediaType: 'video' })}>
           <Text style={styles.buttonText}>Add Video from Camera</Text>
         </TouchableOpacity>
 
         <View style={styles.mediasWrapper}>
-          {medias.map((media, index) => {
+          {medias.map((media, index) =>
             <Image source={{ uri: media.localUri }} style={styles.image} />
-          })}
+          )}
         </View>
       </View>
     );
   }
 
   handleOpenCamera = async ({ mediaType }) => {
-    ImageCropPicker.openCamera({ mediaType })
-      .then(medias => this.setState({ medias }))
-      .catch(err => Alert(err));
+    const medias = await ImageCropPicker.openCamera({ mediaType });
+    medias && this.setState({ medias });
   }
 
   handleOpenPicker = async ({ mediaType }) => {
-    ImageCropPicker.openPicker({ mediaType })
-    .then(medias => this.setState({ medias }))
-    .catch(err => Alert(err));
+    const medias = await ImageCropPicker.openPicker({ mediaType });
+    medias && this.setState({ medias });
   }
 }
 
@@ -64,7 +62,8 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   mediasWrapper: {
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    flex: 1
   },
   image: {
     width: 300,
