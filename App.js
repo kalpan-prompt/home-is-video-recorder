@@ -57,32 +57,43 @@ export default class App extends React.Component {
               case 'video':
                 return (
                   <View style={styles.imagesRow}>
-                    <Video
-                      source={{
-                        uri: media.localUri,
-                        mainVer: 1,
-                        patchVer: 0
-                      }}
-                      rate={1.0}
-                      volume={1.0}
-                      muted={false}
-                      paused={false}
-                      resizeMode="contain"
-                      style={itemStyle}
-                    />
-                    {!!url && <Video
-                      source={{
-                        uri: media.localUri,
-                        mainVer: 1,
-                        patchVer: 0
-                      }}
-                      rate={1.0}
-                      volume={1.0}
-                      muted={false}
-                      paused={false}
-                      resizeMode="contain"
-                      style={itemStyle}
-                    />}
+                    <View>
+                      <Text>Local</Text>
+                      <Video
+                        source={{
+                          uri: media.localUri,
+                          mainVer: 1,
+                          patchVer: 0
+                        }}
+                        rate={1.0}
+                        volume={1.0}
+                        muted={false}
+                        paused={false}
+                        resizeMode="contain"
+                        style={itemStyle}
+                      />
+                    </View>
+                    <View>
+                      <Text>
+                        {url
+                          ? <Text>From URL</Text>
+                          : <Text>{Math.round(progress * 100)}%</Text>
+                        }
+                      </Text>
+                      {!!url && <Video
+                        source={{
+                          uri: media.localUri,
+                          mainVer: 1,
+                          patchVer: 0
+                        }}
+                        rate={1.0}
+                        volume={1.0}
+                        muted={false}
+                        paused={false}
+                        resizeMode="contain"
+                        style={itemStyle}
+                      />}
+                    </View>
                   </View>
                 );
               default:
@@ -96,7 +107,7 @@ export default class App extends React.Component {
 
   handleOpenCamera = async ({ mediaType }) => {
     const medias = await ImageCropPicker.openCamera({ mediaType });
-    medias && this.setState({ medias });
+    medias && this.setState({ medias, url: null });
 
     const url = await upload({
       entityType: 'user',
@@ -109,10 +120,10 @@ export default class App extends React.Component {
 
   handleOpenPicker = async ({ mediaType }) => {
     const medias = await ImageCropPicker.openPicker({ mediaType });
-    medias && this.setState({ medias });
+    medias && this.setState({ medias, url: null });
 
     const url = await upload({
-      entityType: 'user',
+      entityType: 'post',
       filename: medias[0].filename,
       filePath: medias[0].localUri,
       onProgress: this.handleProgress

@@ -8,7 +8,8 @@ export const upload = async ({ entityType, filename, filePath, onProgress }) => 
 
   const { params, uploadEndpoint } = res.data.data;
   const formData = Object.keys(params).map((key) => ({ name: key, data: params[key] }));
-  formData.push({ name: 'file', filename, data: blobFetcher.wrap(filePath) });
+  const fileData = blobFetcher.wrap(filePath).replace(/(.*)file:\/\/\/(.*)/, /$1$2/);
+  formData.push({ name: 'file', filename, data: fileData });
 
   await blobFetcher.fetch({
     fetchId: uploadId,
