@@ -1,6 +1,6 @@
 import Video from 'react-native-video';
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import ImageCropPicker from './app/ImagePicker';
 import { upload } from './app/ImageUploader';
 
@@ -13,6 +13,10 @@ export default class App extends React.Component {
 
   render() {
     const { medias, progress, url } = this.state;
+    const { width: screenWidth } = Dimensions.get('window');
+    const itemWidth = screenWidth / 2;
+    const itemHeight = itemWidth * 4 / 3;
+    const itemStyle = { width: itemWidth, height: itemHeight };
 
     return (
       <View style={styles.container}>
@@ -30,26 +34,57 @@ export default class App extends React.Component {
         </TouchableOpacity>
 
         <View style={styles.mediasWrapper}>
-          {!!progress && <Text>{Math.round(progress * 100)}%</Text>}
-          {!!url && <Text>from URL</Text>}
           {medias.map((media, index) => {
             switch (media.mediaType) {
               case 'photo':
-                return <Image source={{ uri: media.localUri }} style={styles.image} />;
+                return (
+                  <View style={styles.imagesRow}>
+                    <View>
+                      <Text>Local</Text>
+                      <Image source={{ uri: media.localUri }} style={itemStyle} />
+                    </View>
+                    <View>
+                      <Text>
+                        {url
+                          ? <Text>From URL</Text>
+                          : <Text>{Math.round(progress * 100)}%</Text>
+                        }
+                      </Text>
+                      {!!url && <Image source={{ uri: url }} style={itemStyle} />}
+                    </View>
+                  </View>
+                );
               case 'video':
-                return <Video
-                    source={{
-                      uri: media.localUri,
-                      mainVer: 1,
-                      patchVer: 0
-                    }}
-                    rate={1.0}
-                    volume={1.0}
-                    muted={false}
-                    paused={false}
-                    resizeMode="contain"
-                    style={styles.image}
-                  />;
+                return (
+                  <View style={styles.imagesRow}>
+                    <Video
+                      source={{
+                        uri: media.localUri,
+                        mainVer: 1,
+                        patchVer: 0
+                      }}
+                      rate={1.0}
+                      volume={1.0}
+                      muted={false}
+                      paused={false}
+                      resizeMode="contain"
+                      style={itemStyle}
+                    />
+                    {!!url && <Video
+                      source={{
+                        uri: media.localUri,
+                        mainVer: 1,
+                        patchVer: 0
+                      }}
+                      rate={1.0}
+                      volume={1.0}
+                      muted={false}
+                      paused={false}
+                      resizeMode="contain"
+                      style={itemStyle}
+                    />}
+                  </View>
+                );
               default:
                 return null;
             }
@@ -109,8 +144,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     flex: 1
   },
-  image: {
-    width: 300,
-    height: 400
+  imagesRow: {
+    flexDirection: 'row'
   }
 });
