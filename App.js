@@ -30,7 +30,7 @@ export default class App extends React.Component {
         </TouchableOpacity>
 
         <View style={styles.mediasWrapper}>
-          {!!progress && <Text>{progress}</Text>}
+          {!!progress && <Text>{Math.round(progress * 100)}%</Text>}
           {!!url && <Text>from URL</Text>}
           {medias.map((media, index) => {
             switch (media.mediaType) {
@@ -82,7 +82,7 @@ export default class App extends React.Component {
       filePath: medias[0].localUri,
       onProgress: this.handleProgress
     });
-    this.setState({ url });
+    this.setState({ url, progress: null });
   }
 
   handleProgress = (val) => this.setState({ progress: val });
