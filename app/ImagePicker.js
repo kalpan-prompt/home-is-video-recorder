@@ -42,12 +42,12 @@ class ImageCropPicker {
   static openCamera({ mediaType }) {
     return new Promise((resolve, reject) => {
       NewImagePicker.openCamera({
-        mediaType: mapMediaTypes[mediaType],
+        mediaType: mediaType || 'any',
         width: 300,
         height: 400,
       })
         .then(({ path }) => {
-          resolve({ localUri: path, mediaType, filename: this._getFileName(path) });
+          resolve([{ localUri: path, mediaType, filename: this._getFileName(path) }]);
         })
         .catch((err) => {
           switch (err.code) {
