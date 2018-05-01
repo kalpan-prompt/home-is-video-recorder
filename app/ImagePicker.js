@@ -65,8 +65,8 @@ class ImageCropPicker {
     });
   }
 
-  static _getFileName(uri, path) {
-      return uri.split('/').pop();
+  static _getFileName(path) {
+      return path.split('/').pop();
   }
 }
 

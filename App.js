@@ -38,7 +38,7 @@ export default class App extends React.Component {
             switch (media.mediaType) {
               case 'photo':
                 return (
-                  <View style={styles.imagesRow}>
+                  <View style={styles.imagesRow} key={media.localUri}>
                     <View>
                       <Text>Local</Text>
                       <Image source={{ uri: media.localUri }} style={itemStyle} />
@@ -56,7 +56,7 @@ export default class App extends React.Component {
                 );
               case 'video':
                 return (
-                  <View style={styles.imagesRow}>
+                  <View style={styles.imagesRow} key={media.localUri}>
                     <View>
                       <Text>Local</Text>
                       <Video
@@ -69,6 +69,7 @@ export default class App extends React.Component {
                         volume={1.0}
                         muted={false}
                         paused={false}
+                        repeat
                         resizeMode="contain"
                         style={itemStyle}
                       />
@@ -90,6 +91,7 @@ export default class App extends React.Component {
                         volume={1.0}
                         muted={false}
                         paused={false}
+                        repeat
                         resizeMode="contain"
                         style={itemStyle}
                       />}
