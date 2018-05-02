@@ -24,14 +24,14 @@ ImagePicker.openCamera({
 
 ### Request Object
 | Property                                |                   Type                   |              Description                 |
-| --------------------------------------- | :--------------------------------------: | :--------------------------------------- |
+| --------------------------------------- | :--------------------------------------: | :--------------------------------------: |
 | includeExif                           |           bool (default false)           | Include image exif data in the response |
 | compressVideoPreset (ios only)          |      string (default MediumQuality)      | Choose which preset will be used for video compression |
 | mediaType                               |           string (default any)           | Accepted mediaType for image selection, can be one of: 'photo', 'video', or 'any' |
 
 ### Response Object
 | Property                  |  Type  | Description                              |
-| ------------------------- | :----: | :--------------------------------------- |
+| ------------------------- | :----: | :--------------------------------------: |
 | path                      | string | Selected image location. This is null when the `writeTempFile` option is set to false. |
 | localIdentifier(ios only) | string | Selected images' localidentifier, used for PHAsset searching |
 | sourceURL(ios only)       | string | Selected images' source path, do not have write access |
