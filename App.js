@@ -108,16 +108,19 @@ export default class App extends React.Component {
   }
 
   handleOpenCamera = async ({ mediaType }) => {
-    const medias = await ImageCropPicker.openCamera({ mediaType });
+    var includeExif = true;
+    const medias = await ImageCropPicker.openCamera({ mediaType , includeExif});
     medias && this.setState({ medias, url: null });
-
+  
     const url = await upload({
-      entityType: 'user',
+      entityType: 'post',
       filename: medias[0].filename,
       filePath: medias[0].localUri,
-      onProgress: this.handleProgress
+      onProgress: this.handleProgress,
+
     });
-    this.setState({ url });
+  
+    this.setState({ url, progress: null });
   }
 
   handleOpenPicker = async ({ mediaType }) => {

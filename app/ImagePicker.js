@@ -39,11 +39,12 @@ class ImageCropPicker {
     });
   }
 
-  static openCamera({ mediaType }) {
+  static openCamera({ mediaType,includeExif }) {
     return new Promise((resolve, reject) => {
       NewImagePicker.openCamera({
         mediaType: mediaType || 'any',
         width: 300,
+        includeExif:includeExif,
         height: 400,
       })
         .then(({ path }) => {
